@@ -1,5 +1,7 @@
 # Michaelshenmo/YCFX-GreenHouse
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/692d0ee3-1497-4736-b9d7-da81cb01842f/deploy-status)](https://gh.ycfx.msyark.top/)
+
 欢迎，这里是**Michaelshenmo/YCFX-GreenHouse**项目，欢迎从这里寻找灵感！点击[此处](https://gh.ycfx.msyark.top/)访问文档站
 
 此外，后续此处可能会有一些新分支，你可以点击[分支列表](https://github.com/Michaelshenmo/YCFX-GreenHouse/branches)来查看有哪些分支
