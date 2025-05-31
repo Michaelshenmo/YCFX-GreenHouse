@@ -10,9 +10,10 @@ export default defineConfig({
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     footer: {
-      message: 'Released under the MIT License.',
+      message: 'Released under the <a href="https://github.com/Michaelshenmo/YCFX-GreenHouse/blob/docs/LICENSE">GPL 3.0</a> License.',
       copyright: 'Copyright © 2025 <a href="https://github.com/Michaelshenmo">HiMichael0820</a>'
     },
+
     nav: [
       { text: '主页', link: '/', activeMatch: '^/$' }, 
       { text: '文档', link: '/docs/', activeMatch: '^/docs/' }
