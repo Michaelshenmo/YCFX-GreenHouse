@@ -1,13 +1,128 @@
-# Michaelshenmo/YCFX-GreenHouse
+# 智慧生物实验室：基于 ESP32 掌控板的温室环境监测与调节装置<br>自述文件
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/692d0ee3-1497-4736-b9d7-da81cb01842f/deploy-status)](https://gh.ycfx.msyark.top/)
+<!-- 该内容为Markdown格式，使用一个Markdown阅读器以增加可读性 -->
 
-欢迎，这里是**Michaelshenmo/YCFX-GreenHouse**项目，欢迎从这里寻找灵感！点击[此处](https://gh.ycfx.msyark.top/)访问文档站
+## 创作背景、目的及意义
 
-此外，后续此处可能会有一些新分支，你可以点击[分支列表](https://github.com/Michaelshenmo/YCFX-GreenHouse/branches)来查看有哪些分支
+学校新建了温室（生物实验室），为了更好地培育植物，对土壤的温湿度，室内温度，环境光照情况等有一定要求，普通的温湿度计等需要肉眼观察，不是很方便。我想到了可以在温室中通过搭建物联网，借助各种传感器，实时监测湿度、温度、环境光等数据，并可以将这些数据及时发送至物联网服务器并在可视化面板中显示出来。还可以自动根据土壤湿度开关水泵，并在面板上显示水泵开关状态，也可以通过面板控制水泵开关。
 
-每一个组别将拥有一个分支，他们将其可以开源的内容写入分支中，而docs则是主分支，及文档存储的地方
+<br>
 
-另外，如果你使用了这个存储库中的任何内容，请不要忘记他们的[开源许可协议](https://github.com/Michaelshenmo/YCFX-GreenHouse/blob/docs/LICENSE)
+## 硬件清单
 
-Copyright © 2024-2025 HiMichael0820 and All Students in YCFX who participate in the program
+```text
+ESP32 掌控版
+土壤湿度传感器
+DHT11温湿度传感器
+环境光传感器
+水泵
+继电器
+1号电池*2
+数据线与导线
+```
+
+<br>
+
+## 制作用软件及运行环境
+
+Mind+ V1.8.1 RC1.0
+
+Mind+ SIoT V2可视化面板（在Mind+主程序中）
+
+DFROBOT SIoT V2 Server
+
+<br>
+
+## 复现过程
+
+### 启动SIoT
+
+依次打开压缩包中的以下路径
+
+`[物联网服务器]SIoT_V2_Win_test_625\siot-win-0625\siot-win`
+
+来到目录中，双击`start SIoT.bat`即可启动SIoT
+
+> 注意运行的是`start SIoT.bat`而不是`main.exe`<br>
+> 如果直接运行`main.exe`，可能导致配置文件无法加载导致无默认端口，无默认账号密码等问题
+
+运行后可以在本地浏览器打开[127.0.0.1:8080](127.0.0.1:8080)打开管理面板，默认账号密码如下
+
+账号：`siot`
+
+密码：`dfrobot`
+
+更多可以参考[Mind+官网](https://mindplus.dfrobot.com.cn/dashboard)对于此的介绍
+
+### 修改程序并连接网络
+
+设备连接的Wi-Fi账号密码及物联网服务器ip地址均在程序中，该内容因人而异，所以需要修改
+
+除主程序块以外，修改第一个块的账号密码，然后点击第二个块的设置按钮，修改ip地址
+
+> 要获取ip地址，你可能需要在终端执行命令，例如在Windows中可以执行以下命令
+> ```bash
+> ipconfig
+> ```
+
+修改完成后，上传烧录程序
+
+### 使用可视化面板
+
+可视化面版就在Mind+软件中，点击右上角位置的此按钮即可打开
+
+![可视化面板入口](https://img.dfrobot.com.cn/wiki/599a45d540a65c6bb27c3b2a/285dc0cbe09130874590b849e54d58df.png)
+
+打开后应看到以下界面
+
+![可视化面板首页](https://img.dfrobot.com.cn/wiki/599a45d540a65c6bb27c3b2a/ce81f591a3465b6d1b2ec8432c0644b2.png)
+
+将鼠标悬浮在**新建项目**上，选择导入项目，选取根目录下的`可视化面板.mpdb`文件即可导入
+
+同样需要点击右上角的连接状态按钮设置服务器数据源为服务器ip
+
+![数据源](https://img.dfrobot.com.cn/wiki/599a45d540a65c6bb27c3b2a/e7797412021e40a9ba3ac8a9c431b33e.png)
+
+直到显示**连接成功**
+
+![连接状态](https://img.dfrobot.com.cn/wiki/599a45d540a65c6bb27c3b2a/bcf8977e329e45e36afc955a47d4c298.png)
+
+---
+
+此时基本完成，硬件连接按照主代码上方注释完成即可
+
+### 注意
+
+- 电池仅为给水泵供电，主控板必须外接5V电源（如充电宝）
+
+- 电池并不一定要使用1号电池，只需保证串联的电池电压为DC3-6V即可，当然可以使用直流电源<br>以下为水泵参数
+```text
+供电电压：DC3-6V
+电流：150~370mA
+扬程：25-45cm
+流量：80-100L/H
+功率：0.4~2W
+进出水口：5mm/0.2in
+```
+
+<br>
+
+## 参考资源
+
+[DFROBOT DFR0017 数字继电器模块 产品资料 使用教程](https://wiki.dfrobot.com.cn/_SKU_DFR0017_数字继电器模块)
+
+[水分传感器、土壤水分、模拟量、技术参数、示例代码](https://wiki.dfrobot.com.cn/_SKU_SEN0114_Moisture_Sensor土壤湿度传感器)
+
+[Mind+数据可视化面板-SIoT V2下载使用-教程](https://mindplus.dfrobot.com.cn/dashboard)
+
+<br>
+
+```text
+作品名称：智慧生物实验室：基于 ESP32 掌控版的温室环境监测与调节装置
+学生姓名：***
+学校名称：***
+指导教师：***
+编程软件/平台：Mind+ V1.8.1 RC1.0
+```
+
+**本作品设备代码、接线方式、实现方式等均为原创，仅参考设备使用教程。**
